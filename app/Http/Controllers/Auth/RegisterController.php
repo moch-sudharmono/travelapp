@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['required', 'string', 'max:255'],
+            'phone' => ['string', 'max:255'],
         ]);
     }
 
@@ -67,14 +67,20 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name'      => $data['name'],
-            'email'     => $data['email'],
-            'password'  => Hash::make($data['password']),
-            'facebook_token' => $data['facebook_token'],
-            'google_token' => $data['google_token'],
-            'phone' => $data['phone'],
-            'city' => $data['city']
+            'name'              => $data['name'],
+            'email'             => $data['email'],
+            'password'          => Hash::make($data['password']),
+            'facebook_token'    => $data['facebook_token'],
+            'google_token'      => $data['google_token'],            
         ]);
+    }
+
+    public function update(Request $request, $id){
+        
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+        
+        return response()->json(['data' => $user->toArray()], 201);
     }
 
     protected function registered(Request $request, $user)

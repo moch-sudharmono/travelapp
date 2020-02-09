@@ -21,8 +21,12 @@ class UserTypeController extends Controller
     public function store(Request $request)
     {
         $services = UserTypes::create($request->all());
-
-        return response()->json($services, 201);
+        if($services){
+            return response()->json($services, 201);
+        }else{
+            return response()->json(null,400);
+        }
+        
     }
 
     public function update(Request $request, $id)

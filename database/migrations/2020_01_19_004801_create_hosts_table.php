@@ -17,6 +17,10 @@ class CreateHostsTable extends Migration
             $table->bigIncrements('id');            
             $table->integer('user_id');
             $table->string('license_number');
+            $table->string('insurance_number')->nullable();
+            $table->binary('license_image')->nullable();
+            $table->string('social_security')->nullable();
+            $table->boolean('background_check')->default(true);
             $table->integer('fee');
             $table->string('status');
             $table->timestamps();

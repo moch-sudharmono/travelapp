@@ -27,7 +27,8 @@ class CreateUsersTable extends Migration
             $table->text('facebook_token')->nullable();
             $table->text('google_token')->nullable();
             $table->string('phone')->nullable();
-            $table->integer('city');           
+            $table->string('address')->nullable();
+            $table->integer('city')->nullable();           
         });
     }
 

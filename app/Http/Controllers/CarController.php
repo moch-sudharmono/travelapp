@@ -15,9 +15,8 @@ class CarController extends Controller
 
     public function store(Request $request)
     {
-        $guests = Cars::create($request->all());
-
-        return response()->json($guests, 201);
+        $car = Cars::create($request->all());        
+        return response()->json($car, 201);
     }
 
     public function update(Request $request, $id)

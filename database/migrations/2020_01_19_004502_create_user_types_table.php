@@ -18,6 +18,7 @@ class CreateUserTypesTable extends Migration
             $table->integer('user_id');
             $table->string('type');
             $table->timestamps();
+            $table->unique(['user_id', 'type']);
         });
     }
 

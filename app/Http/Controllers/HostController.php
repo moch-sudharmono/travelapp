@@ -16,7 +16,7 @@ class HostController extends Controller
  
     public function show($id)
     {
-        return Hosts::with(['user','car','languages.language','documents','services.service'])->find($id);
+        return Hosts::with(['user','car'])->find($id);
     }
 
     public function store(Request $request)
