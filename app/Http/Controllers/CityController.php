@@ -10,12 +10,12 @@ class CityController extends Controller
     //
     public function index()
     {
-        return Cities::all();
+        return Cities::with(['country'])->get();
     }
  
     public function show($id)
     {
-        return Cities::find($id);
+        return Cities::with(['country'])->find($id);
     }
 
     public function store(Request $request)
