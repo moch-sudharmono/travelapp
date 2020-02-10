@@ -35,7 +35,7 @@ class Hosts extends Model
             #Host Available by City
             $data   = Hosts::with(['user','car'])->where('user_id', $users->id)->first();
             
-            if($data && !in_array($data, $bookedHost)){
+            if($data && !in_array($data['id'], $bookedHost)){
                 $result[] = $data;
             }
         }

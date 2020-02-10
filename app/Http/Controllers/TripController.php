@@ -10,7 +10,7 @@ class TripController extends Controller
 {
     public function show($id)
     {
-        return Trips::with(['host.user','guest.user','detail.destinationData'])->find($id);
+        return Trips::with(['host.user','guest.user','detail.destinationdata'])->find($id);
     }
 
     public function store(Request $request)

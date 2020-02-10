@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cars extends Model
 {
     //
-    protected $fillable = ['host_id', 'car_type', 'manufacture', 'model', 'color', 'mileage', 'capacity','features', 'image'];
+    protected $fillable = ['host_id', 'car_type', 'manufacture', 'model', 'color', 'mileage', 'capacity','features', 'image','image_url'];
 
 
     // public function images(){
