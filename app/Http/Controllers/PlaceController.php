@@ -69,14 +69,16 @@ class PlaceController extends Controller
         $result = json_decode($response->getBody()->getContents(), true);
         
         #get fares
-        $fares = $startPoint['host']['fee'];
-        
+        $fares      = $startPoint['host']['fee'];
+        $est_rate   = $fares * (($result['rows'][0]['elements'][0]['distance']['value'])/1000);
         $payload = [
             'distance'      => ($result['rows'][0]['elements'][0]['distance']['value']),
             'duration'      => ($result['rows'][0]['elements'][0]['duration']['value']),
-            'estimated_rate'=> $fares * (($result['rows'][0]['elements'][0]['distance']['value'])/1000)
+            'estimated_rate'=> $est_rate
         ];
         $toPoint->update($payload);
+        
+        $startPoint->update(['estimate_fare' => $est_rate]);
 
         return response()->json($startPoint, 201);
     }
@@ -101,14 +103,20 @@ class PlaceController extends Controller
         $result = json_decode($response->getBody()->getContents(), true);
 
         $fares = $trip['host']['fee'];
-
+        $estfare = $fares * ($result['rows'][0]['elements'][0]['distance']['value'] / 1000);
         $payload = [
             'distance'      => ($result['rows'][0]['elements'][0]['distance']['value']),
             'duration'      => ($result['rows'][0]['elements'][0]['duration']['value']),
-            'estimated_rate'=> $fares * ($result['rows'][0]['elements'][0]['distance']['value'] / 1000)
+            'estimated_rate'=> $estfare
         ];
 
         $toPoint->update($payload);
+
+        $currFare = $trip['estimate_fare'];
+
+        $totalFare = $currFare + $estfare;
+
+        $trip->update(['estimate_fare' => $totalFare]);
 
         return response()->json($trip, 201);
     }
