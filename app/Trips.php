@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Trips extends Model
 {
     //
-    protected $fillable = ['host_id', 'guest_id', 'trip_date', 'pick_up','pick_up_point', 'persons', 'estimated_time', 'real_time', 'city_id'];
+    protected $fillable = ['host_id', 'guest_id', 'trip_date', 'pick_up','pick_up_point', 'persons', 'estimated_time', 'real_time', 'city_id', 'review'];
     
     public function detail(){
         return $this->hasMany('App\TripDetails', 'trip_id');

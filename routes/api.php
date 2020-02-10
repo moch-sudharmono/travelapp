@@ -93,6 +93,7 @@ Route::group(['auth:api'],function () {
     Route::get('trip/{id}', 'TripController@show');
     Route::get('trip/{id}/pickup/{to}', 'PlaceController@calculateFaresFromPickUp');
     Route::get('trip/{id}/distance/{from}/{to}', 'PlaceController@calculateFares');    
+    Route::put('review/{id}', 'TripController@review');
 
     #Test Route
     Route::get('route', 'RouteController@routeMap');

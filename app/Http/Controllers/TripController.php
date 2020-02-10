@@ -29,4 +29,12 @@ class TripController extends Controller
 
         return response()->json($trip, 200);
     }
+
+    public function review(Request $request, $id)
+    {
+        $trip = Trips::findOrFail($id);
+        $trip->update($request->all());
+
+        return response()->json($trip, 200);
+    }
 }
