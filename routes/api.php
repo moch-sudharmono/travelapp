@@ -1,6 +1,7 @@
 <?php
 
 use App\Article;
+use App\Http\Controllers\TripController;
 use Illuminate\Http\Request;
 #use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
@@ -79,8 +80,17 @@ Route::group(['auth:api'],function () {
 #CORE HERE#
 ###############################################################################
     
-    #Find Destination
-    Route::post('destination', 'DestinationController@find');
+    #Trip Controller OK
+    Route::post('search', 'TripController@store');
+    #Trip Set HOST
+    Route::put('search/{id}/host', 'TripController@update');
+    
+    #Find and Set Destination
+    Route::get('place/{search}', 'PlaceController@searchPlace');
+    Route::post('destination/{tripid}', 'PlaceController@setPlace');
+
+    #Show Trip
+    Route::get('trip/{id}', 'TripController@show');
 
     #Booking
     Route::get('booking/cities','BookingController@findCities');

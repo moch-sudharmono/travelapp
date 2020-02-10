@@ -18,7 +18,7 @@ class CreateTripsTable extends Migration
             $table->integer('host_id')->nullable();
             $table->integer('guest_id');
             $table->date('trip_date');
-            $table->integer('pick_up');
+            $table->string('pick_up');
             $table->integer('persons');
             $table->string('estimated_time');
             $table->string('real_time')->nullable();
