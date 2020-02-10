@@ -25,7 +25,7 @@ class PlaceController extends Controller
         $client = new Client();
         $response = $client->request('GET', $mainUrl);
 
-        return $response->getBody()->getContents();        
+        return json_decode($response->getBody()->getContents(),true);        
     }
 
     public function setPlace(Request $request, $tripid){
@@ -51,7 +51,7 @@ class PlaceController extends Controller
     }
 
     public function calculateFaresFromPickUp(Request $request,$id, $to){
-        $startPoint = Trips::with(['detail.destinationData'])->find($id);
+        $startPoint = Trips::with(['detail.destinationData','host'])->find($id);
         $toPoint    = TripDetails::with(['destinationData'])->find($to);
 
 
@@ -67,11 +67,14 @@ class PlaceController extends Controller
         $response = $client->request('GET', $mainUrl);
 
         $result = json_decode($response->getBody()->getContents(), true);
-        //$result = json_encode($result);
-        //return $result;
+        
+        #get fares
+        $fares = $startPoint['host']['fee'];
+        
         $payload = [
-            'distance' => ($result['rows'][0]['elements'][0]['distance']['value']),
-            'duration' => ($result['rows'][0]['elements'][0]['duration']['value'])
+            'distance'      => ($result['rows'][0]['elements'][0]['distance']['value']),
+            'duration'      => ($result['rows'][0]['elements'][0]['duration']['value']),
+            'estimated_rate'=> $fares * (($result['rows'][0]['elements'][0]['distance']['value'])/1000)
         ];
         $toPoint->update($payload);
 
@@ -97,9 +100,12 @@ class PlaceController extends Controller
 
         $result = json_decode($response->getBody()->getContents(), true);
 
+        $fares = $trip['host']['fee'];
+
         $payload = [
-            'distance' => ($result['rows'][0]['elements'][0]['distance']['value']),
-            'duration' => ($result['rows'][0]['elements'][0]['duration']['value'])
+            'distance'      => ($result['rows'][0]['elements'][0]['distance']['value']),
+            'duration'      => ($result['rows'][0]['elements'][0]['duration']['value']),
+            'estimated_rate'=> $fares * ($result['rows'][0]['elements'][0]['distance']['value'] / 1000)
         ];
 
         $toPoint->update($payload);

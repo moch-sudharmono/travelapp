@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Trips;
 class Hosts extends Model
 {
     //
@@ -18,13 +19,23 @@ class Hosts extends Model
     }
 
     public static function findAvailableHost($date, $city){
+        #Listing by City
         $results = User::where('city', $city)->get();
         $result = [];
+
+        #Must add Available on date
+        $bookedHost = [];
+        $booked     = Trips::with(['host'])->where('trip_date', $date)->get();
+        foreach($booked as $book){
+            $bookedHost[] = $book['host_id'];
+        }
+        
+
         foreach($results as $users){
-            #Available by City
-            $data = Hosts::with('user','car')->where('user_id', $users->id)->first();
-            #Must add Available on date
-            if($data){
+            #Host Available by City
+            $data   = Hosts::with(['user','car'])->where('user_id', $users->id)->first();
+            
+            if($data && !in_array($data, $bookedHost)){
                 $result[] = $data;
             }
         }

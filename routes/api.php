@@ -94,6 +94,13 @@ Route::group(['auth:api'],function () {
     Route::get('trip/{id}/pickup/{to}', 'PlaceController@calculateFaresFromPickUp');
     Route::get('trip/{id}/distance/{from}/{to}', 'PlaceController@calculateFares');    
 
+    #Test Route
+    Route::get('route', 'RouteController@routeMap');
+
+
+
+    #######################################################################
+
     #Booking
     Route::get('booking/cities','BookingController@findCities');
     Route::post('booking/pickup', 'BookingController@findPickup');
