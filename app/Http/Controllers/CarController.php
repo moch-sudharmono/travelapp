@@ -15,7 +15,13 @@ class CarController extends Controller
 
     public function store(Request $request)
     {
-        $car = Cars::create($request->all());        
+        $car = Cars::where('host_id', '=', $request->host_id)->firstOrFail();
+        if($car){
+            $car->update($request->all());
+        }else{
+            $car = Cars::create($request->all());        
+        }
+        
         return response()->json($car, 201);
     }
 
