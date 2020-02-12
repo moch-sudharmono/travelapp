@@ -21,7 +21,13 @@ class HostController extends Controller
 
     public function store(Request $request)
     {
-        $hosts = Hosts::create($request->all());
+        $hosts = Hosts::findOrFail($request->id);
+
+        if($hosts){
+            $hosts->update($request->all());    
+        }else{
+            $hosts = Hosts::create($request->all());
+        }
 
         return response()->json($hosts, 201);
     }
