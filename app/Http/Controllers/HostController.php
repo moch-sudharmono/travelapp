@@ -16,20 +16,21 @@ class HostController extends Controller
  
     public function show($id)
     {
-        return Hosts::with(['user','car'])->find($id);
+        return Hosts::with(['user'])->find($id);
     }
 
     public function store(Request $request)
     {
-        $hosts = Hosts::find($request->id);
+        $host = Hosts::find($request->id);
 
-        if($hosts){
-            $hosts->update($request->all());    
+        if($host){
+            $host->update($request->all());    
         }else{
-            $hosts = Hosts::create($request->all());
+            //print_r($request->all());exit();
+            $host = Hosts::create($request->all());
         }
 
-        return response()->json($hosts, 201);
+        return response()->json($host, 201);
     }
 
     public function update(Request $request, $id)

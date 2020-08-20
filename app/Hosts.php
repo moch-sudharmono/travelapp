@@ -8,7 +8,24 @@ use App\Trips;
 class Hosts extends Model
 {
     //
-    protected $fillable = ['user_id', 'license_number', 'license_image', 'insurance_number', 'social_security', 'background_check',  'fee', 'status'];
+    protected $fillable = [ 'user_id', 
+                            'license_number', 
+                            'license_image', 
+                            'insurance_number', 
+                            'social_security', 
+                            'background_check', 
+                            'status',
+                            'spoken_languages',
+                            'cities_coverage',
+                            'car_brand',
+                            'car_year',
+                            'car_model',
+                            'car_capacity',
+                            'car_vin',
+                            'car_mileage',
+                            'car_features',
+                            'car_image'
+                        ];
 
     public function user(){
         return $this->belongsTo('App\User', 'user_id', 'id');

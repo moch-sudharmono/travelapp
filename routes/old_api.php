@@ -11,7 +11,7 @@ Route::post('logout', 'Auth\LoginController@logout');
 #Step 1
 Route::post('register', 'Auth\RegisterController@register');
 #Step 2
-Route::put('profile/{id}', 'Auth\RegisterController@update');
+Route::put('updateuser/{id}', 'Auth\RegisterController@update');
 Route::post('login', 'Auth\LoginController@login');
 
 
@@ -37,9 +37,21 @@ Route::group(['auth:api'],function () {
         Route::post('language', 'LanguageController@store');
         Route::put('language/{id}', 'LanguageController@update');
 
+        #Services OK
+        Route::get('services', 'ServiceController@index');
+        Route::get('service/{id}', 'ServiceController@show');
+        Route::post('service', 'ServiceController@store');
+        Route::put('service/{id}', 'ServiceController@update'); 
+
     ###### End of MASTER DATA######
 
-    ####### USER SIGN UP ######        
+    ####### USER SIGN UP ######
+        #User Type 
+        Route::post('usertype', 'UserTypeController@store');
+        Route::put('usertype/{id}', 'UserTypeController@update'); 
+        Route::put('usertype/{id}/host', 'UserTypeController@hostupdate'); 
+        Route::put('usertype/{id}/guest', 'UserTypeController@guestupdate'); 
+
         #Host 
         Route::get('hosts', 'HostController@index');
         Route::get('host/{id}', 'HostController@show');
@@ -80,6 +92,8 @@ Route::group(['auth:api'],function () {
 
     #Test Route
     Route::get('route', 'RouteController@routeMap');
+
+
 
     #######################################################################
 
