@@ -70,8 +70,8 @@ class RegisterController extends Controller
             'name'              => $data['name'],
             'email'             => $data['email'],
             'password'          => Hash::make($data['password']),
-            'facebook_token'    => $data['facebook_token'],
-            'google_token'      => $data['google_token'],            
+            'facebook_token'    => (array_key_exists('facebook_token',$data)?$data['facebook_token']:''),
+            'google_token'      => (array_key_exists('google_token',$data)?$data['google_token']:''),
         ]);
     }
 

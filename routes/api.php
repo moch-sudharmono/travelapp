@@ -3,13 +3,8 @@
 use App\Article;
 use App\Http\Controllers\TripController;
 use Illuminate\Http\Request;
-#use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
 
-// Route::middleware('auth:api')
-//         ->get('/user', function (Request $request) {
-//             return $request->user();
-// });
 
 Route::post('logout', 'Auth\LoginController@logout');
 
