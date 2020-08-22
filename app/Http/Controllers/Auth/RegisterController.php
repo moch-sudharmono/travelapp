@@ -87,4 +87,21 @@ class RegisterController extends Controller
 
         return response()->json(['data' => $user->toArray()], 201);
     }
+
+    public function index()
+    {
+        return User::with(['host'])->get();
+    }
+
+    public function hosts()
+    {
+        #HOST
+        return User::with(['host'])->has('host','!=',"")->get();        
+    }
+
+    public function guests()
+    {
+        #GUEST
+        return User::with(['host'])->has('host','=',"")->get();        
+    }
 }

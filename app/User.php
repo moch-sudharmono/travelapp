@@ -55,6 +55,8 @@ class User extends Authenticatable
         return $randomString;
     }
 
-    
+    public function host(){
+        return $this->hasOne('App\Hosts', 'user_id');
+    }
 
 }

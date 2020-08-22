@@ -39,7 +39,12 @@ Route::group(['auth:api'],function () {
 
     ###### End of MASTER DATA######
 
-    ####### USER SIGN UP ######        
+    ####### USER SIGN UP ######  
+        #User List
+        Route::get('users', 'Auth\RegisterController@index');
+        Route::get('users/host', 'Auth\RegisterController@hosts');
+        Route::get('users/guest', 'Auth\RegisterController@guests');
+
         #Host 
         Route::get('hosts', 'HostController@index');
         Route::get('host/{id}', 'HostController@show');
@@ -109,7 +114,9 @@ Route::group(['auth:api'],function () {
     Route::get('trips/{id}/host/active/updatetrip', 'TripController@updatestop');
 
     #Static Contents
-
-    
+    Route::get('static', 'ArticleController@index');
+    Route::get('static/{id}', 'ArticleController@show');
+    Route::post('static', 'ArticleController@store');
+    Route::put('static/{id}', 'ArticleController@update');
 
 });

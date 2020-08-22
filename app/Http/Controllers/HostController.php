@@ -26,7 +26,6 @@ class HostController extends Controller
         if($host){
             $host->update($request->all());    
         }else{
-            //print_r($request->all());exit();
             $host = Hosts::create($request->all());
         }
 
