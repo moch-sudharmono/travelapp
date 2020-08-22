@@ -8,12 +8,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('logout', 'Auth\LoginController@logout');
 
-#Step 1
-Route::post('register', 'Auth\RegisterController@register');
-#Step 2
-Route::put('profile/{id}', 'Auth\RegisterController@update');
-Route::post('login', 'Auth\LoginController@login');
 
+Route::post('register', 'UserController@register');
+Route::post('login', 'UserController@login');
+Route::get('me', 'UserController@getAuthenticatedUser')->middleware('jwt.verify');
 
 Route::group(['auth:api'],function () {
     ####### MASTER DATA ######
